@@ -36,6 +36,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v2.5.1
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
       - name: Install packages
         run: npm ci --no-fund
       - name: Semantic Release
