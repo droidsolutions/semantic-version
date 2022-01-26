@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9F00CD7D-C224-42A3-A5DD-ACC3CD827092}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroidSolutions.Oss.SemanticVersion", "src\DroidSolutions.Oss.SemanticVersion\DroidSolutions.Oss.SemanticVersion.csproj", "{DDF22EE0-D393-45C2-B2E0-DD6A5607E7A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0B896BC8-3C52-4EAD-9149-256F1753F408}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroidSolutions.Oss.SemanticVersionTest", "test\DroidSolutions.Oss.SemanticVersionTest\DroidSolutions.Oss.SemanticVersionTest.csproj", "{378A94B9-F9DC-4319-A52D-B97D30582EE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDF22EE0-D393-45C2-B2E0-DD6A5607E7A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDF22EE0-D393-45C2-B2E0-DD6A5607E7A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDF22EE0-D393-45C2-B2E0-DD6A5607E7A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDF22EE0-D393-45C2-B2E0-DD6A5607E7A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{378A94B9-F9DC-4319-A52D-B97D30582EE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{378A94B9-F9DC-4319-A52D-B97D30582EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{378A94B9-F9DC-4319-A52D-B97D30582EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{378A94B9-F9DC-4319-A52D-B97D30582EE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DDF22EE0-D393-45C2-B2E0-DD6A5607E7A6} = {9F00CD7D-C224-42A3-A5DD-ACC3CD827092}
+		{378A94B9-F9DC-4319-A52D-B97D30582EE4} = {0B896BC8-3C52-4EAD-9149-256F1753F408}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,30 @@
+version: "2"
+updates:
+  - directory: /
+    open-pull-requests-limit: 10
+    package-ecosystem: nuget
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    assignees:
+      - "kampfmoehre"
+  - directory: /
+    open-pull-requests-limit: 10
+    package-ecosystem: npm
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    assignees:
+      - "kampfmoehre"
+    commit-message:
+      prefix: "ci"
+  - directory: /
+    open-pull-requests-limit: 10
+    package-ecosystem: github-actions
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    assignees:
+      - "kampfmoehre"
+    commit-message:
+      prefix: "ci"

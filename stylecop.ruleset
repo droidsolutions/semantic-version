@@ -1,0 +1,7 @@
+<RuleSet Name="Rules for DroidSolutions Semantic Version project" Description="Stylecop rules for DroidSolutions Semantic Version project" ToolsVersion="15.0">
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1101" Action="None"/>
+    <Rule Id="SA1502" Action="None"/>
+    <Rule Id="SA1633" Action="None"/>
+  </Rules>
+</RuleSet>

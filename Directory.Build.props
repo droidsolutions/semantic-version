@@ -1,0 +1,33 @@
+<Project>
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)stylecop.ruleset</CodeAnalysisRuleSet>
+    <Version>0.0.9</Version>
+    <Authors>Stefan Ißmer</Authors>
+    <Company>DroidSolutions GmbH</Company>
+    <Description>Contains tools to help work with semantic version numbers.</Description>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryUrl>https://github.com/droidsolutions/semantic-version.git</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright (c) DroidSolutions GmbH 2020.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>CHANGELOG.md</PackageReleaseNotes>
+    <RepositoryBranch>main</RepositoryBranch>
+    <RepositoryCommit>fc297c4ab4d7d5a2d108322d380feb2c7ce04385</RepositoryCommit>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" />
+    <None Include="LICENSE" Pack="true" PackagePath=""/>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Roslynator.Analyzers" Version="4.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.0.0" PrivateAssets="All"/>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All"/>
+  </ItemGroup>
+</Project>

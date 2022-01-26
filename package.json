@@ -1,0 +1,116 @@
+{
+  "name": "@droidsolutions-oss/semantic-version",
+  "version": "0.9.0",
+  "description": "NuGet package with tools to help work with semantic version numbers.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "dotnet test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/droidsolutions/semantic-version.git"
+  },
+  "keywords": [
+    "nuget",
+    "semantic",
+    "version",
+    "semantic-version",
+    "package"
+  ],
+  "author": "Stefan Ißmer <stefan.issmer@droidsolutions.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/droidsolutions/semantic-version/issues"
+  },
+  "homepage": "https://github.com/droidsolutions/semantic-version#readme",
+  "private": true,
+  "devDependencies": {
+    "@commitlint/cli": "16.1.0",
+    "@commitlint/config-conventional": "16.0.0",
+    "@droidsolutions-oss/semantic-release-nuget": "1.0.1",
+    "@droidsolutions-oss/semantic-release-update-file": "1.0.3",
+    "@semantic-release/changelog": "6.0.1",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "8.0.2",
+    "husky": "7.0.4",
+    "semantic-release": "19.0.2"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        0,
+        "always",
+        "lowerCase"
+      ]
+    }
+  },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "master",
+      "main",
+      "next",
+      "next-major",
+      {
+        "name": "alpha",
+        "prerelease": true
+      },
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "develop",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@droidsolutions-oss/semantic-release-update-file",
+      "@semantic-release/npm",
+      "@droidsolutions-oss/semantic-release-nuget",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "package-lock.json",
+            "CHANGELOG.md",
+            "Directory.Build.props"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ],
+    "projectPath": "src/DroidSolutions.Oss.SemanticVersion/DroidSolutions.Oss.SemanticVersion.csproj",
+    "npmPublish": false,
+    "includeSymbols": true,
+    "files": [
+      {
+        "path": [
+          "Directory.Build.props"
+        ],
+        "type": "xml",
+        "replacements": [
+          {
+            "key": "Version",
+            "value": "${nextRelease.version}"
+          },
+          {
+            "key": "RepositoryCommit",
+            "value": "${CI_COMMIT_SHA}"
+          }
+        ]
+      }
+    ]
+  }
+}
