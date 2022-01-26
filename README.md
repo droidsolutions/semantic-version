@@ -2,6 +2,7 @@
 
 This is a NuGet package containing a library that provides sort and compare functions for [Semantic Version](https://semver.org/) numbers.
 
+[![Coverage Status](https://coveralls.io/repos/github/droidsolutions/semantic-version/badge.svg?branch=main)](https://coveralls.io/github/droidsolutions/semantic-version?branch=main)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 # Installation
