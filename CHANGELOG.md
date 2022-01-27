@@ -1,3 +1,10 @@
+# [1.0.0-develop.3](https://github.com/droidsolutions/semantic-version/compare/v1.0.0-develop.2...v1.0.0-develop.3) (2022-01-27)
+
+
+### Bug Fixes
+
+* **nuget:** update nuget plugin upload snupkg ([466f83f](https://github.com/droidsolutions/semantic-version/commit/466f83f0a09ae8dd93ca1524463b8c6af5c445ce))
+
 # [1.0.0-develop.2](https://github.com/droidsolutions/semantic-version/compare/v1.0.0-develop.1...v1.0.0-develop.2) (2022-01-27)
 
 

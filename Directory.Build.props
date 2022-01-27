@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)stylecop.ruleset</CodeAnalysisRuleSet>
-    <Version>1.0.0-develop.2</Version>
+    <Version>1.0.0-develop.3</Version>
     <Authors>Stefan Ißmer</Authors>
     <Company>DroidSolutions GmbH</Company>
     <Description>Contains tools to help work with semantic version numbers.</Description>
@@ -15,7 +15,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>https://github.com/droidsolutions/semantic-version/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryBranch>main</RepositoryBranch>
-    <RepositoryCommit>85aa7f6875cf2f82c45cd63cb211442cb339052f</RepositoryCommit>
+    <RepositoryCommit>466f83f0a09ae8dd93ca1524463b8c6af5c445ce</RepositoryCommit>
     <PackageTags>semantic;semantic-version;compare;version</PackageTags>
   </PropertyGroup>
 
