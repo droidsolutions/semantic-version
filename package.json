@@ -107,7 +107,7 @@
           },
           {
             "key": "RepositoryCommit",
-            "value": "${context.nextRelease.gitHead}"
+            "value": "${nextRelease.gitHead}"
           }
         ]
       }
