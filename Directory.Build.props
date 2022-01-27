@@ -16,6 +16,7 @@
     <PackageReleaseNotes>CHANGELOG.md</PackageReleaseNotes>
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryCommit>fc297c4ab4d7d5a2d108322d380feb2c7ce04385</RepositoryCommit>
+    <PackageTags>semantic;semantic-version;compare;version</PackageTags>
   </PropertyGroup>
   
   <ItemGroup>
