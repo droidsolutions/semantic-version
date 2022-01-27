@@ -1,3 +1,10 @@
+# [1.0.0-develop.4](https://github.com/droidsolutions/semantic-version/compare/v1.0.0-develop.3...v1.0.0-develop.4) (2022-01-27)
+
+
+### Bug Fixes
+
+* **nuget:** enable deterministic build ([9aa60bf](https://github.com/droidsolutions/semantic-version/commit/9aa60bf12ca04f8a91f76d5ece77f04d506805af))
+
 # [1.0.0-develop.3](https://github.com/droidsolutions/semantic-version/compare/v1.0.0-develop.2...v1.0.0-develop.3) (2022-01-27)
 
 
