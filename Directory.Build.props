@@ -1,4 +1,5 @@
 <Project>
+
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)stylecop.ruleset</CodeAnalysisRuleSet>
     <Version>1.0.0-develop.2</Version>
@@ -12,19 +13,19 @@
     <Copyright>Copyright (c) DroidSolutions GmbH 2020.</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>CHANGELOG.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/droidsolutions/semantic-version/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryCommit>85aa7f6875cf2f82c45cd63cb211442cb339052f</RepositoryCommit>
     <PackageTags>semantic;semantic-version;compare;version</PackageTags>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" />
     <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath=""/>
     <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath=""/>
     <None Include="$(MSBuildThisFileDirectory)CHANGELOG.md" Pack="true" PackagePath=""/>
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
     <PackageReference Include="Roslynator.Analyzers" Version="4.0.0" PrivateAssets="All"/>
@@ -32,4 +33,5 @@
     <PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.0.0" PrivateAssets="All"/>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All"/>
   </ItemGroup>
+
 </Project>
