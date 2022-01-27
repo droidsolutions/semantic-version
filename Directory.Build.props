@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/droidsolutions/semantic-version.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright (c) DroidSolutions GmbH 2020.</Copyright>
+    <Copyright>Copyright (c) DroidSolutions GmbH 2022.</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>https://github.com/droidsolutions/semantic-version/blob/main/CHANGELOG.md</PackageReleaseNotes>
