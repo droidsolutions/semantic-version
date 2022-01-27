@@ -1,3 +1,10 @@
+# [1.0.0-develop.5](https://github.com/droidsolutions/semantic-version/compare/v1.0.0-develop.4...v1.0.0-develop.5) (2022-01-27)
+
+
+### Bug Fixes
+
+* **nuget:** update copyright year ([09cc4f3](https://github.com/droidsolutions/semantic-version/commit/09cc4f3823a7165891cded4db340215696355fb0))
+
 # [1.0.0-develop.4](https://github.com/droidsolutions/semantic-version/compare/v1.0.0-develop.3...v1.0.0-develop.4) (2022-01-27)
 
 
