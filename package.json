@@ -107,7 +107,7 @@
           },
           {
             "key": "RepositoryCommit",
-            "value": "${CI_COMMIT_SHA}"
+            "value": "${context.nextRelease.gitHead}"
           }
         ]
       }
