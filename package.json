@@ -1,6 +1,6 @@
 {
   "name": "@droidsolutions-oss/semantic-version",
-  "version": "1.0.0-develop.1",
+  "version": "1.0.0-develop.2",
   "description": "NuGet package with tools to help work with semantic version numbers.",
   "main": "index.js",
   "directories": {

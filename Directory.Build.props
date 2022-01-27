@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)stylecop.ruleset</CodeAnalysisRuleSet>
-    <Version>1.0.0-develop.1</Version>
+    <Version>1.0.0-develop.2</Version>
     <Authors>Stefan Ißmer</Authors>
     <Company>DroidSolutions GmbH</Company>
     <Description>Contains tools to help work with semantic version numbers.</Description>
@@ -14,7 +14,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>CHANGELOG.md</PackageReleaseNotes>
     <RepositoryBranch>main</RepositoryBranch>
-    <RepositoryCommit>7c45615f78203e2c642b8275a8ea0d5a03b1ffb5</RepositoryCommit>
+    <RepositoryCommit>85aa7f6875cf2f82c45cd63cb211442cb339052f</RepositoryCommit>
     <PackageTags>semantic;semantic-version;compare;version</PackageTags>
   </PropertyGroup>
   
