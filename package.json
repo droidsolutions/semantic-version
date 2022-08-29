@@ -29,7 +29,7 @@
   "private": true,
   "devDependencies": {
     "@commitlint/cli": "17.1.2",
-    "@commitlint/config-conventional": "17.0.3",
+    "@commitlint/config-conventional": "17.1.0",
     "@droidsolutions-oss/semantic-release-nuget": "1.2.0",
     "@droidsolutions-oss/semantic-release-update-file": "1.2.0",
     "@semantic-release/changelog": "6.0.1",
