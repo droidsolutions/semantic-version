@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/droidsolutions/semantic-version/compare/v1.0.0...v1.1.0) (2022-11-10)
+
+
+### Features
+
+* **SemanticVersionObject:** add IsPreRelease method ([5bb79f7](https://github.com/droidsolutions/semantic-version/commit/5bb79f7eb206aa00e61530db7e0c9bba2a5afe22))
+
 # 1.0.0 (2022-01-27)
 
 
