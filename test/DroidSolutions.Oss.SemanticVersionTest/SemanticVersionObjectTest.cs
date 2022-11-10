@@ -53,10 +53,10 @@ public class SemanticVersionObjectTest
   {
     var list = new List<SemanticVersionObject>
       {
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+        SemanticVersionObject.FromString("1.0.0"),
+        SemanticVersionObject.FromString("1.1.1"),
+        SemanticVersionObject.FromString("1.1.0"),
+        SemanticVersionObject.FromString("0.9.0"),
       };
 
     list.Sort();
@@ -64,10 +64,10 @@ public class SemanticVersionObjectTest
     Assert.Equal(
       new List<SemanticVersionObject>
       {
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+          SemanticVersionObject.FromString("1.1.1"),
+          SemanticVersionObject.FromString("1.1.0"),
+          SemanticVersionObject.FromString("1.0.0"),
+          SemanticVersionObject.FromString("0.9.0"),
       },
       list);
   }
@@ -77,10 +77,10 @@ public class SemanticVersionObjectTest
   {
     var list = new SemanticVersionObject[]
     {
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+        SemanticVersionObject.FromString("1.0.0"),
+        SemanticVersionObject.FromString("1.1.1"),
+        SemanticVersionObject.FromString("1.1.0"),
+        SemanticVersionObject.FromString("0.9.0"),
     };
 
     Array.Sort(list, SemanticVersionObject.SortVersionDescending());
@@ -88,10 +88,10 @@ public class SemanticVersionObjectTest
     Assert.Equal(
       new List<SemanticVersionObject>
       {
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+          SemanticVersionObject.FromString("1.1.1"),
+          SemanticVersionObject.FromString("1.1.0"),
+          SemanticVersionObject.FromString("1.0.0"),
+          SemanticVersionObject.FromString("0.9.0"),
       },
       list);
   }
@@ -162,5 +162,17 @@ public class SemanticVersionObjectTest
     var version = SemanticVersionObject.FromString(ownVersion);
     var actual = version.IsOlderThan(SemanticVersionObject.FromString(otherVersion));
     Assert.Equal(expected, actual);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", false)]
+  [InlineData("2.3.4", false)]
+  [InlineData("3.2.1-alpha.1", true)]
+  [InlineData("4.2.1-beta.15-special", true)]
+  [InlineData("5.0.5-develop.69-build_420", true)]
+  public void IsPreRelease_ShouldWork(string version, bool expected)
+  {
+    SemanticVersionObject semanticVersion = SemanticVersionObject.FromString(version);
+    Assert.Equal(expected, semanticVersion.IsPreRelease());
   }
 }

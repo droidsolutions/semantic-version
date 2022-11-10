@@ -189,4 +189,13 @@ public class SemanticVersionObject : ISemanticVersion, IComparable
   {
     return CompareTo(compare) == 1;
   }
+
+  /// <summary>
+  /// Checks if the current version object is a pre-release version or not.
+  /// </summary>
+  /// <returns><see langword="true"/> if this version is a pre-release, else <see langword="false"/>.</returns>
+  public bool IsPreRelease()
+  {
+    return !string.IsNullOrEmpty(PreRelease);
+  }
 }

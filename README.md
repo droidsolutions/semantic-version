@@ -169,6 +169,15 @@ var isolder = y.IsOlderThan(x); // true
 
 The methods only return `true` if the given instance is newer/older. If they are both the same or the given compare version is null `false` is returned.
 
+### IsPreRelease
+
+You can use the `IsPreRelease` method to determine if the given version is a pre release or a full semantic version.
+
+```csharp
+SemanticVersionObject.FromString("v2.0.3").IsPreRelease(); // false
+SemanticVersionObject.FromString("3.1.3-beta.12").IsPreRelease(); // true
+```
+
 # Development
 
 If you want to add a feature or fix a bug, be sure to read the [contribution guidelines](./CONTRIBUTING.md) first.
