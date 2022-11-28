@@ -368,10 +368,13 @@ dotnet_naming_style.s_camelcase.capitalization = camel_case
 # Roslynator
 
 dotnet_analyzer_diagnostic.category-roslynator.severity = default
-roslynator_analyzers.enabled_by_default = true
-roslynator_refactorings.enabled = true
-roslynator_compiler_diagnostic_fixes.enabled = true
 roslynator_accessibility_modifiers = explicit
+roslynator_analyzers.enabled_by_default = true
+roslynator_blank_line_after_file_scoped_namespace_declaration = true
+roslynator_compiler_diagnostic_fixes.enabled = true
 roslynator_enum_has_flag_style = operator
+roslynator_max_line_length = 120
+roslynator_new_line_at_end_of_file = true
 roslynator_object_creation_parentheses_style = omit
-roslynator_object_creation_type_style = explicit|implicit|implicit_when_type_is_obvious
+roslynator_object_creation_type_style = implicit_when_type_is_obvious
+roslynator_refactorings.enabled = true
