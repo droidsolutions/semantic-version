@@ -365,11 +365,16 @@ dotnet_naming_style.s_camelcase.required_suffix =
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
 
+# StyleCop
+dotnet_diagnostic.SA1000.severity = none
+
 # Roslynator
 
 dotnet_analyzer_diagnostic.category-roslynator.severity = default
 roslynator_accessibility_modifiers = explicit
+roslynator_accessor_braces_style = single_line_when_expression_is_on_single_line
 roslynator_analyzers.enabled_by_default = true
+roslynator_array_creation_type_style = implicit_when_type_is_obvious
 roslynator_blank_line_after_file_scoped_namespace_declaration = true
 roslynator_compiler_diagnostic_fixes.enabled = true
 roslynator_enum_has_flag_style = operator
