@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/droidsolutions/semantic-version/compare/v1.1.0...v1.2.0) (2023-02-22)
+
+
+### Bug Fixes
+
+* compare null as lower than not null ([f25ffc6](https://github.com/droidsolutions/semantic-version/commit/f25ffc6f769e58201697f4c4cb14caa157005934))
+
+
+### Features
+
+* explicitly support .NET 7 ([6f16711](https://github.com/droidsolutions/semantic-version/commit/6f16711967272bab417660008c81e369062bade6))
+* implement IEquatable ([4d6654c](https://github.com/droidsolutions/semantic-version/commit/4d6654cb7867e82b1a7eac613233b7527615b7cf))
+* implement operators ([bd9dfdc](https://github.com/droidsolutions/semantic-version/commit/bd9dfdcead0eba85ed9406ebf5b7bb6f0afefa7e))
+
 # [1.1.0](https://github.com/droidsolutions/semantic-version/compare/v1.0.0...v1.1.0) (2022-11-10)
 
 
