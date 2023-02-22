@@ -79,6 +79,72 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
   public virtual string? PreRelease { get; set; }
 
   /// <summary>
+  /// Checks if both given items are equal.
+  /// </summary>
+  /// <param name="left">The left side of the comparison.</param>
+  /// <param name="right">The right side of the comparison.</param>
+  /// <returns><see langword="true"/> if both sides are equal, else <see langword="false"/>.</returns>
+  public static bool operator ==(SemanticVersionObject? left, SemanticVersionObject? right)
+  {
+    return left?.CompareTo(right) == 0;
+  }
+
+  /// <summary>
+  /// Checks if both given items are not equal.
+  /// </summary>
+  /// <param name="left">The left side of the comparison.</param>
+  /// <param name="right">The right side of the comparison.</param>
+  /// <returns><see langword="false"/> if both sides are equal, else <see langword="true"/>.</returns>
+  public static bool operator !=(SemanticVersionObject? left, SemanticVersionObject? right)
+  {
+    return left?.CompareTo(right) != 0;
+  }
+
+  /// <summary>
+  /// Checks if both given left is greater than right.
+  /// </summary>
+  /// <param name="left">The left side of the comparison.</param>
+  /// <param name="right">The right side of the comparison.</param>
+  /// <returns><see langword="true"/> if left is greater than the right side, else <see langword="false"/>.</returns>
+  public static bool operator >(SemanticVersionObject? left, SemanticVersionObject? right)
+  {
+    return left?.CompareTo(right) < 0;
+  }
+
+  /// <summary>
+  /// Checks if both given right is greater than left.
+  /// </summary>
+  /// <param name="left">The left side of the comparison.</param>
+  /// <param name="right">The right side of the comparison.</param>
+  /// <returns><see langword="true"/> if right is greater than the left side, else <see langword="false"/>.</returns>
+  public static bool operator <(SemanticVersionObject? left, SemanticVersionObject? right)
+  {
+    return left?.CompareTo(right) > 0;
+  }
+
+  /// <summary>
+  /// Checks if both given left is equal or greater than the right.
+  /// </summary>
+  /// <param name="left">The left side of the comparison.</param>
+  /// <param name="right">The right side of the comparison.</param>
+  /// <returns><see langword="true"/> if left is greater than the right side, else <see langword="false"/>.</returns>
+  public static bool operator >=(SemanticVersionObject? left, SemanticVersionObject? right)
+  {
+    return left?.CompareTo(right) <= 0;
+  }
+
+  /// <summary>
+  /// Checks if both given right is equal or greater than the left.
+  /// </summary>
+  /// <param name="left">The left side of the comparison.</param>
+  /// <param name="right">The right side of the comparison.</param>
+  /// <returns><see langword="true"/> if right is greater than the left side, else <see langword="false"/>.</returns>
+  public static bool operator <=(SemanticVersionObject? left, SemanticVersionObject? right)
+  {
+    return left?.CompareTo(right) >= 0;
+  }
+
+  /// <summary>
   /// Creates a <see cref="SemanticVersion"/> instance by parsing the given string.
   /// </summary>
   /// <param name="version">A version string in semantic release format, where the elements are separated by dots. The version can
@@ -128,7 +194,7 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
   {
     if (obj == null)
     {
-      return 1;
+      return -1;
     }
 
     if (obj is not SemanticVersionObject version)

@@ -114,9 +114,9 @@ public class SemanticVersionObjectTest
   }
 
   [Fact]
-  public void CompareTo_ShouldReturn1IfGivenNull()
+  public void CompareTo_ShouldReturnMinus1IfGivenNull()
   {
-    Assert.Equal(1, new SemanticVersionObject().CompareTo(null));
+    Assert.Equal(-1, new SemanticVersionObject().CompareTo(null));
   }
 
   [Fact]
@@ -210,5 +210,97 @@ public class SemanticVersionObjectTest
     SemanticVersionObject semanticVersion2 = SemanticVersionObject.FromString(version2);
 
     Assert.Equal(semanticVersion1.GetHashCode(), semanticVersion2.GetHashCode());
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.0", true)]
+  [InlineData("v1.0.1", "v1.0.0", false)]
+  [InlineData("v1.0.0-beta.1", "1.0.0-beta.1", true)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, false)]
+  public void EqualityOperator_ShouldWork(string? version1, string? version2, bool expected)
+  {
+    SemanticVersionObject? semanticVersion1 = version1 == null ? null : SemanticVersionObject.FromString(version1);
+    SemanticVersionObject? semanticVersion2 = version2 == null ? null : SemanticVersionObject.FromString(version2);
+
+    Assert.Equal(expected, semanticVersion1 == semanticVersion2);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", false)]
+  [InlineData("v1.0.0", "1.0.0", false)]
+  [InlineData("v1.0.1", "v1.0.0", true)]
+  [InlineData("v1.0.0-beta.1", "1.0.0-beta.1", false)]
+  [InlineData(null, "v1.0.0", true)]
+  [InlineData("v1.0.0", null, true)]
+  public void UnequalityOperator_ShouldWork(string? version1, string? version2, bool expected)
+  {
+    SemanticVersionObject? semanticVersion1 = version1 == null ? null : SemanticVersionObject.FromString(version1);
+    SemanticVersionObject? semanticVersion2 = version2 == null ? null : SemanticVersionObject.FromString(version2);
+
+    Assert.Equal(expected, semanticVersion1 != semanticVersion2);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", false)]
+  [InlineData("v1.0.0", "1.0.1", false)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", true)]
+  [InlineData("v3.0.0", "3.1.0", false)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, true)]
+  public void GreaterThanOperator_ShouldWork(string? greater, string? lower, bool expected)
+  {
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+
+    Assert.Equal(expected, greaterSemanticVersion > lowerSemanticVersion);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", false)]
+  [InlineData("v1.0.0", "1.0.1", true)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", false)]
+  [InlineData("v3.0.0", "3.1.0", true)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, false)]
+  public void LowerThanOperator_ShouldWork(string? lower, string? greater, bool expected)
+  {
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+
+    bool actual = lowerSemanticVersion < greaterSemanticVersion;
+    Assert.Equal(expected, actual);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.1", false)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", true)]
+  [InlineData("v3.0.0", "3.1.0", false)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, true)]
+  public void GreaterThanOrEqualOperator_ShouldWork(string? greater, string? lower, bool expected)
+  {
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+
+    Assert.Equal(expected, greaterSemanticVersion >= lowerSemanticVersion);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.1", true)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", false)]
+  [InlineData("v3.0.0", "3.1.0", true)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, false)]
+  public void LowerThanOrEqualOperator_ShouldWork(string? lower, string? greater, bool expected)
+  {
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+
+    bool actual = lowerSemanticVersion <= greaterSemanticVersion;
+    Assert.Equal(expected, actual);
   }
 }
