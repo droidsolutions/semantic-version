@@ -175,4 +175,40 @@ public class SemanticVersionObjectTest
     SemanticVersionObject semanticVersion = SemanticVersionObject.FromString(version);
     Assert.Equal(expected, semanticVersion.IsPreRelease());
   }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.0", true)]
+  [InlineData("v1.0.0", "v1.0.1", false)]
+  [InlineData("v1.0.1", "v1.0.0", false)]
+  public void IEquatable_Equals_ShouldWork(string version1, string version2, bool expected)
+  {
+    SemanticVersionObject semanticVersion1 = SemanticVersionObject.FromString(version1);
+    SemanticVersionObject semanticVersion2 = SemanticVersionObject.FromString(version2);
+    Assert.Equal(expected, semanticVersion1.Equals(semanticVersion2));
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.0", true)]
+  [InlineData("v1.0.0", "v1.0.1", false)]
+  [InlineData("v1.0.1", "v1.0.0", false)]
+  public void Object_Equals_ShouldWork(string version1, string version2, bool expected)
+  {
+    SemanticVersionObject semanticVersion1 = SemanticVersionObject.FromString(version1);
+    SemanticVersionObject semanticVersion2 = SemanticVersionObject.FromString(version2);
+    Assert.Equal(expected, semanticVersion1.Equals((object)semanticVersion2));
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0")]
+  [InlineData("v1.0.0", "1.0.0")]
+  [InlineData("v1.0.0-beta.1", "1.0.0-beta.1")]
+  public void Object_GetHashCode_ShouldWork(string version1, string version2)
+  {
+    SemanticVersionObject semanticVersion1 = SemanticVersionObject.FromString(version1);
+    SemanticVersionObject semanticVersion2 = SemanticVersionObject.FromString(version2);
+
+    Assert.Equal(semanticVersion1.GetHashCode(), semanticVersion2.GetHashCode());
+  }
 }

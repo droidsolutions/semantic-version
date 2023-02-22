@@ -7,7 +7,7 @@ namespace DroidSolutions.Oss.SemanticVersion;
 /// <summary>
 /// A model that represents a semantic version number.
 /// </summary>
-public class SemanticVersionObject : ISemanticVersion, IComparable
+public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<SemanticVersionObject>
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="SemanticVersionObject"/> class.
@@ -86,7 +86,7 @@ public class SemanticVersionObject : ISemanticVersion, IComparable
   /// <returns>A <see cref="SemanticVersionObject"/> instance with the parsed version numbers. </returns>
   public static SemanticVersionObject FromString(string version)
   {
-    var regex = new Regex(@"^v?(\d+).(\d+).(\d+)(-(.*))?$", RegexOptions.CultureInvariant);
+    Regex regex = new(@"^v?(\d+).(\d+).(\d+)(-(.*))?$", RegexOptions.CultureInvariant);
     Match match = regex.Match(version);
     if (!match.Success)
     {
@@ -197,5 +197,31 @@ public class SemanticVersionObject : ISemanticVersion, IComparable
   public bool IsPreRelease()
   {
     return !string.IsNullOrEmpty(PreRelease);
+  }
+
+  /// <inheritdoc/>
+  public bool Equals(SemanticVersionObject? other)
+  {
+    return CompareTo(other) == 0;
+  }
+
+  /// <inheritdoc/>
+  public override bool Equals(object? obj)
+  {
+    return Equals(obj as SemanticVersionObject);
+  }
+
+  /// <inheritdoc/>
+  public override int GetHashCode()
+  {
+    unchecked
+    {
+      int hashCode = Major;
+      hashCode = (hashCode * 397) ^ Minor;
+      hashCode = (hashCode * 397) ^ Patch;
+      hashCode = (hashCode * 397) ^ (!string.IsNullOrEmpty(PreRelease) ? PreRelease.GetHashCode() : 0);
+
+      return hashCode;
+    }
   }
 }
