@@ -31,7 +31,7 @@ public class SemanticVersionComparer : IComparer, IComparer<ISemanticVersion>
       return 0;
     }
 
-    var nullCompare = CheckOneIsNull(x, y);
+    int nullCompare = CheckOneIsNull(x, y);
     if (nullCompare != 0)
     {
       return nullCompare;
@@ -62,12 +62,12 @@ public class SemanticVersionComparer : IComparer, IComparer<ISemanticVersion>
   {
     if (x == null && y != null)
     {
-      return 1;
+      return -1;
     }
 
     if (x != null && y == null)
     {
-      return -1;
+      return 1;
     }
 
     return 0;

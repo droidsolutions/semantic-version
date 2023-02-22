@@ -27,8 +27,8 @@ public class SemanticVersionComparerTest
   }
 
   [Theory]
-  [InlineData(null, "1.0.0", 1)]
-  [InlineData("1.0.0", null, -1)]
+  [InlineData(null, "1.0.0", -1)]
+  [InlineData("1.0.0", null, 1)]
   [InlineData(null, null, 0)]
   public void Compare_HandlesNullValues(string x, string y, int expected)
   {
