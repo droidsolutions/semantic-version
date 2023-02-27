@@ -20,7 +20,7 @@ jobs:
           dotnet-version: "7.0.x"
       - run: dotnet test /p:CollectCoverage=true
       - name: publish coverage report to coveralls.io
-        uses: coverallsapp/github-action@1.1.3
+        uses: coverallsapp/github-action@v1.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage/coverage.info
