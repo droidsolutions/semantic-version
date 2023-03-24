@@ -20,10 +20,11 @@ jobs:
           dotnet-version: "7.0.x"
       - run: dotnet test /p:CollectCoverage=true
       - name: publish coverage report to coveralls.io
-        uses: coverallsapp/github-action@v1.2.4
+        uses: coverallsapp/github-action@v2.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage/coverage.info
+          format: lcov
   release:
     name: Semantic Release
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
