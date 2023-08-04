@@ -18,6 +18,14 @@ updates:
       - "kampfmoehre"
     commit-message:
       prefix: "ci"
+    groups:
+      roslynator:
+        patterns:
+          - "Roslynator.CodeAnalysis.*"
+      xunit:
+        patterns:
+          - "xunit"
+          - "xunit.*"
   - directory: /
     open-pull-requests-limit: 10
     package-ecosystem: github-actions
