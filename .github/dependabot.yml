@@ -8,6 +8,14 @@ updates:
       interval: daily
     assignees:
       - "kampfmoehre"
+    groups:
+      roslynator:
+        patterns:
+          - "Roslynator.CodeAnalysis.*"
+      xunit:
+        patterns:
+          - "xunit"
+          - "xunit.*"
   - directory: /
     open-pull-requests-limit: 10
     package-ecosystem: npm
@@ -19,13 +27,9 @@ updates:
     commit-message:
       prefix: "ci"
     groups:
-      roslynator:
+      commitlint:
         patterns:
-          - "Roslynator.CodeAnalysis.*"
-      xunit:
-        patterns:
-          - "xunit"
-          - "xunit.*"
+          - "@commitlint/*"
   - directory: /
     open-pull-requests-limit: 10
     package-ecosystem: github-actions
