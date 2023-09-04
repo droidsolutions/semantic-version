@@ -11,7 +11,7 @@ updates:
     groups:
       roslynator:
         patterns:
-          - "Roslynator.CodeAnalysis.*"
+          - "Roslynator.*"
       xunit:
         patterns:
           - "xunit"
