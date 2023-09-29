@@ -28,7 +28,7 @@
   "homepage": "https://github.com/droidsolutions/semantic-version#readme",
   "private": true,
   "devDependencies": {
-    "@commitlint/cli": "17.7.1",
+    "@commitlint/cli": "17.7.2",
     "@commitlint/config-conventional": "17.7.0",
     "@droidsolutions-oss/semantic-release-nuget": "1.3.0",
     "@droidsolutions-oss/semantic-release-update-file": "1.3.2",
