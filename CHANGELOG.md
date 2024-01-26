@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/droidsolutions/semantic-version/compare/v1.2.0...v1.3.0) (2024-01-26)
+
+
+### Features
+
+* add build metadata ([b525a5f](https://github.com/droidsolutions/semantic-version/commit/b525a5fa3f40f37740cfe6490a662f50eda0e2fe))
+* update to .NET 8 ([298a915](https://github.com/droidsolutions/semantic-version/commit/298a915a985daeb426a0fe7543917874d7fa2995))
+
 # [1.2.0](https://github.com/droidsolutions/semantic-version/compare/v1.1.0...v1.2.0) (2023-02-22)
 
 
