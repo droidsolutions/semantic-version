@@ -22,16 +22,20 @@ There is an interface `ISemanticVersion` for which comparers are implemented. Ju
 
 You can also use the `SemanticVersionObject` class that already implements the comparer with some neat and handy additions.
 
+Additionally `SemanticVersionObject` provides a `Build` property containing any build metadata. As per [specification](https://semver.org/#spec-item-10) build metadtaa data may only contain ASCII alphanumerics and hyphens `[0-9A-Za-z-]` and can be appended at the end of the version with a plus sign `+`.
+
 ### Constructor
 
 When you create a new `SemanticVersionObject` instance you can give the version number parts straight away.
 
 ```csharp
-var version = new SemanticVersionObject();                   // 1.0.0
-var version = new SemanticVersionObject(2);                  // 2.0.0
-var version = new SemanticVersionObject(1, 1);               // 1.1.0
-var version = new SemanticVersionObject(1, 1, 1);            // 1.1.1
-var version = new SemanticVersionObject(1, 1, 1, "alpha.1"); // 1.1.1-alpha.1
+SemanticVersionObject version = new();                   // 1.0.0
+SemanticVersionObject version = new(2);                  // 2.0.0
+SemanticVersionObject version = new(1, 1);               // 1.1.0
+SemanticVersionObject version = new(1, 1, 1);            // 1.1.1
+SemanticVersionObject version = new(1, 1, 1, "alpha.1"); // 1.1.1-alpha.1
+SemanticVersionObject version = new(1, 1, 1, "alpha.1", "298a915a"); // 1.1.1-alpha.1+298a915a
+SemanticVersionObject version = new(1, 1, 1, null, "298a915a"); // 1.1.1+298a915a
 ```
 
 ### FromString
@@ -39,7 +43,7 @@ var version = new SemanticVersionObject(1, 1, 1, "alpha.1"); // 1.1.1-alpha.1
 There is also a static `FromString` Method which will return you a `SemanticVersionObject` instance from a version string.
 
 ```csharp
-var version = SemanticVersionObject.FromString("v1.0.0-beta.1");
+var version = SemanticVersionObject.FromString("v1.0.0-beta.1+298a915a985daeb426a0fe7543917874d7fa2995");
 ```
 
 ### ToString
@@ -47,8 +51,8 @@ var version = SemanticVersionObject.FromString("v1.0.0-beta.1");
 You can generate a version string with the `ToString` method:
 
 ```csharp
-var version = new SemanticVersionObject { Major = 1, Minor = 2, Patch = 3, PreRelease = "develop.13" };
-Console.WriteLine(version.ToString()); // v1.2.3-develop.13
+SemanticVersionObject version = new() { Major = 1, Minor = 2, Patch = 3, PreRelease = "beta.1", Build = "298a915a" };
+Console.WriteLine(version.ToString()); // v1.2.3-beta.1+298a915a
 ```
 
 If you do not want the leading `v` you can use the `ToVersionString` method and give false for the `withLeadingV` parameter:
@@ -63,7 +67,7 @@ Console.WriteLine(version.ToVersionString(false)); // 1.4.0
 As mentioned a default comparer is included which allows to sort version descending to have the newest version first. You can use the `Sort` LinQ method for this:
 
 ```csharp
-var list = new List<SemanticVersionObject>
+List<SemanticVersionObject> list = new()
 {
   SemanticVersionObject.FromString("1.0.0"),
   SemanticVersionObject.FromString("1.1.1"),
@@ -113,9 +117,9 @@ Assert.Equal(
 The `SemanticVersionObject` class implements the `IComparable` interface so you can use the `CompareTo` on every instance. Just pass another instance to it. The result is an integer that tells you, if the given instance is newer (1), equal (0) or older (-1).
 
 ```csharp
-var oldVersion = new SemanticVersionObject(1, 0, 0);
-var equalVersion = new SemanticVersionObject(1, 0, 0);
-var newVersion = new SemanticVersionObject(1, 1, 0);
+SemanticVersionObject oldVersion = new(1, 0, 0);
+SemanticVersionObject equalVersion = new(1, 0, 0);
+SemanticVersionObject newVersion = new(1, 1, 0);
 
 Console.WriteLine(oldVersion.CompareTo(newVersion)); // 1
 Console.WriteLine(newVersion.CompareTo(oldVersion)); // -1
@@ -127,8 +131,8 @@ Console.WriteLine(oldVersion.CompareTo(equalVersion)); // 0
 Sorting (and comparing) takes into account if there is a prerelease or not. For example consider this:
 
 ```csharp
-var x = new SemanticVersionObject(1, 0, 0);
-var y = new SemanticVersionObject(1, 0, 0, "alpha.1");
+SemanticVersionObject x = new(1, 0, 0);
+SemanticVersionObject y = new(1, 0, 0, "alpha.1");
 
 Console.WriteLine(x.CompareTo(y)); // -1
 ```
@@ -138,8 +142,8 @@ Version without a prerelease are always newer if major, minor and patch are equa
 Also consider this:
 
 ```csharp
-var x = new SemanticVersionObject(1, 0, 0, "beta.2");
-var y = new SemanticVersionObject(1, 0, 0, "beta.10");
+SemanticVersionObject x = new(1, 0, 0, "beta.2");
+SemanticVersionObject y = new(1, 0, 0, "beta.10");
 
 Console.WriteLine(x.CompareTo(y)); // 1
 ```
@@ -147,12 +151,32 @@ Console.WriteLine(x.CompareTo(y)); // 1
 Prereleases will be split into their parts and then will be compared. Each part must be separated with a dot. So for example beta is higher than alpha but just because b is later in the alphabet than a.
 
 ```csharp
-var x = new SemanticVersionObject(1, 0, 0, "alpha.1");
-var y = new SemanticVersionObject(1, 0, 0, "beta.1");
-var z = new SemanticVersionObject(1, 0, 0, "develop.1");
+SemanticVersionObject x = new(1, 0, 0, "alpha.1");
+SemanticVersionObject y = new(1, 0, 0, "beta.1");
+SemanticVersionObject z = new(1, 0, 0, "develop.1");
 
 Console.WriteLine(x.CompareTo(y)); // 1
 Console.WriteLine(y.CompareTo(z)); // 1
+```
+
+As per [spec](https://semver.org/#spec-item-10) build metadata is ignored when comparing.
+
+```csharp
+List<SemanticVersionObject> list = new()
+{
+  SemanticVersionObject.FromString("1.0.0+200"),
+  SemanticVersionObject.FromString("1.0.0+100"),
+};
+
+list.Sort();
+
+Assert.Equal(
+  new List<SemanticVersionObject>
+  {
+    SemanticVersionObject.FromString("1.0.0+200"),
+    SemanticVersionObject.FromString("1.0.0+100"),
+  },
+  list);
 ```
 
 ### IsNewerThan, IsOlderThan

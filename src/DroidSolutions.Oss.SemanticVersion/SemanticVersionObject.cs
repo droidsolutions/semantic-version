@@ -59,6 +59,23 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
   }
 
   /// <summary>
+  /// Initializes a new instance of the <see cref="SemanticVersionObject"/> class.
+  /// </summary>
+  /// <param name="major">The major version.</param>
+  /// <param name="minor">The minor version.</param>
+  /// <param name="patch">The patch version.</param>
+  /// <param name="prerelease">The prerelease version.</param>
+  /// <param name="build">The build metadata.</param>
+  public SemanticVersionObject(int major, int minor, int patch, string? prerelease, string build)
+  {
+    Major = major;
+    Minor = minor;
+    Patch = patch;
+    PreRelease = prerelease;
+    Build = build;
+  }
+
+  /// <summary>
   /// Gets or sets the major version number.
   /// </summary>
   public virtual int Major { get; set; }
@@ -77,6 +94,11 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
   /// Gets or sets the additional label, like alpha, beta, pre-release or whatever.
   /// </summary>
   public virtual string? PreRelease { get; set; }
+
+  /// <summary>
+  /// Gets or sets the build metadata.
+  /// </summary>
+  public virtual string? Build { get; set; }
 
   /// <summary>
   /// Checks if both given items are equal.
@@ -152,7 +174,11 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
   /// <returns>A <see cref="SemanticVersionObject"/> instance with the parsed version numbers. </returns>
   public static SemanticVersionObject FromString(string version)
   {
-    Regex regex = new(@"^v?(\d+).(\d+).(\d+)(-(.*))?$", RegexOptions.CultureInvariant);
+    // @"^v?(\d+).(\d+).(\d+)(-(.*))?$",
+    Regex regex = new(
+      @"^v?(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<build>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$",
+      RegexOptions.CultureInvariant);
+
     Match match = regex.Match(version);
     if (!match.Success)
     {
@@ -160,19 +186,22 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
         $"The given string \"{version}\" is not a valid semantic version!", nameof(version));
     }
 
-    string? preRelease = null;
-    if (match.Groups.Count > 5 && !string.IsNullOrWhiteSpace(match.Groups[5].Value))
+    SemanticVersionObject result = new(
+      int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture),
+      int.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture),
+      int.Parse(match.Groups[3].Value, CultureInfo.InvariantCulture));
+
+    if (match.Groups.ContainsKey("prerelease"))
     {
-      preRelease = match.Groups[5].Value;
+      result.PreRelease = match.Groups["prerelease"].Value;
     }
 
-    return new SemanticVersionObject
+    if (match.Groups.ContainsKey("build"))
     {
-      Major = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture),
-      Minor = int.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture),
-      Patch = int.Parse(match.Groups[3].Value, CultureInfo.InvariantCulture),
-      PreRelease = preRelease,
-    };
+      result.Build = match.Groups["build"].Value;
+    }
+
+    return result;
   }
 
   /// <summary>
@@ -231,6 +260,11 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
     if (!string.IsNullOrEmpty(PreRelease))
     {
       result = $"{result}-{PreRelease}";
+    }
+
+    if (!string.IsNullOrEmpty(Build))
+    {
+      result = $"{result}+{Build}";
     }
 
     return result;

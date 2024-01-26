@@ -12,11 +12,15 @@ public class SemanticVersionObjectTest
   public static IEnumerable<object[]> FromStringTestData() => new[]
   {
     new object[] { "1.0.0", new SemanticVersionObject(1, 0, 0) },
-    new object[] { "v1.0.0", new SemanticVersionObject(1, 0, 0) },
-    new object[] { "1.1.1", new SemanticVersionObject(1, 1, 1) },
-    new object[] { "11.111.1111", new SemanticVersionObject(11, 111, 1111) },
-    new object[] { "1.0.0-alpha.1", new SemanticVersionObject(1, 0, 0, "alpha.1") },
-    new object[] { "1.0.0-beta.12", new SemanticVersionObject(1, 0, 0, "beta.12") },
+    ["v1.0.0", new SemanticVersionObject(1, 0, 0)],
+    ["1.1.1", new SemanticVersionObject(1, 1, 1)],
+    ["11.111.1111", new SemanticVersionObject(11, 111, 1111)],
+    ["1.0.0-alpha.1", new SemanticVersionObject(1, 0, 0, "alpha.1")],
+    ["1.0.0-beta.12", new SemanticVersionObject(1, 0, 0, "beta.12")],
+    [
+      "1.20.4+dd08e98289531187cb240db94b188c58938eb214",
+      new SemanticVersionObject(1, 20, 4, null, "dd08e98289531187cb240db94b188c58938eb214")
+    ],
   };
 
   [Theory]
@@ -129,6 +133,8 @@ public class SemanticVersionObjectTest
   [InlineData("v1.0.0", true, "v1.0.0")]
   [InlineData("v22.222.2222", false, "22.222.2222")]
   [InlineData("v3333.33.333-develop.16", true, "v3333.33.333-develop.16")]
+  [InlineData("2.3.4-beta.1+298a915a985daeb426a0fe7543917874d7fa2995", true, "v2.3.4-beta.1+298a915a985daeb426a0fe7543917874d7fa2995")]
+  [InlineData("2.3.4+298a915a985daeb426a0fe7543917874d7fa2995", false, "2.3.4+298a915a985daeb426a0fe7543917874d7fa2995")]
   public void ToVersionString_ShouldWorkCorrectly(string input, bool withV, string expected)
   {
     var version = SemanticVersionObject.FromString(input) as SemanticVersionObject;
@@ -169,7 +175,9 @@ public class SemanticVersionObjectTest
   [InlineData("2.3.4", false)]
   [InlineData("3.2.1-alpha.1", true)]
   [InlineData("4.2.1-beta.15-special", true)]
-  [InlineData("5.0.5-develop.69-build_420", true)]
+  [InlineData("5.0.5-develop.69-build.420", true)]
+  [InlineData("5.0.5-develop.69+build.420", true)]
+  [InlineData("5.0.5+build.420", false)]
   public void IsPreRelease_ShouldWork(string version, bool expected)
   {
     SemanticVersionObject semanticVersion = SemanticVersionObject.FromString(version);
