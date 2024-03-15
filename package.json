@@ -34,7 +34,7 @@
     "@droidsolutions-oss/semantic-release-update-file": "1.4.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "9.2.6",
+    "@semantic-release/github": "10.0.2",
     "husky": "9.0.11",
     "semantic-release": "23.0.3"
   },
