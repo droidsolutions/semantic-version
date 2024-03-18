@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/droidsolutions/semantic-version/compare/v1.3.0...v1.4.0) (2024-03-18)
+
+
+### Features
+
+* add static FromVersion method ([89dd5f9](https://github.com/droidsolutions/semantic-version/commit/89dd5f98c87353f82e33c4cc962680fd08b361dc))
+
 # [1.3.0](https://github.com/droidsolutions/semantic-version/compare/v1.2.0...v1.3.0) (2024-01-26)
 
 
