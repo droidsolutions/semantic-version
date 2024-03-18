@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Globalization;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace DroidSolutions.Oss.SemanticVersion;
@@ -202,6 +203,66 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
     }
 
     return result;
+  }
+
+  /// <summary>
+  /// Creates a <see cref="SemanticVersion"/> instance by parsing the given <see cref="Version"/>.
+  /// </summary>
+  /// <remarks>
+  /// <para>The given <see cref="Version"/> object's properties are used to create an instance of the
+  /// <see cref="SemanticVersion"/> class. Major and minor properties are used accordingly.
+  /// </para>
+  /// <para>
+  /// <seealso href="https://learn.microsoft.com/en-us/dotnet/fundamentals/runtime-libraries/system-version">The docs
+  /// </seealso> state that revision should be used as patch version, however .NET AssemblyInfo.cs files are generated
+  /// with patch set to the build property. To control this, the <paramref name="useBuildAsPatch"/> parameter can be
+  /// used.
+  /// </para>
+  /// <para>
+  /// Note that Version objects don't support prereleases or build metadata as the build and revision properties are
+  /// ints.
+  /// </para>
+  /// </remarks>
+  /// <param name="version">The version to parse.</param>
+  /// <param name="useBuildAsPatch">If <see langword="true"/>, the <see cref="Version.Build"/> property will be
+  /// used as the patch version. Otherwise, the <see cref="Version.Revision"/> property will be used.</param>
+  /// <returns>A <see cref="SemanticVersionObject"/> instance with the parsed version numbers. </returns>
+  public static SemanticVersionObject FromVersion(Version version, bool useBuildAsPatch = false)
+  {
+    ArgumentNullException.ThrowIfNull(version);
+    int patch = useBuildAsPatch ? version.Build : version.Revision;
+    string? build = null;
+    if (useBuildAsPatch && version.Revision >= 1)
+    {
+      build = version.Revision.ToString();
+    }
+    else if (!useBuildAsPatch && version.Build >= 1)
+    {
+      build = version.Build.ToString();
+    }
+
+    return build is null
+      ? new SemanticVersionObject(version.Major, version.Minor, patch)
+      : new SemanticVersionObject(version.Major, version.Minor, patch, null, build);
+  }
+
+  /// <summary>
+  /// Gets the current application version.
+  /// </summary>
+  /// <returns>The current application version as <see cref="SemanticVersionObject"/>.</returns>
+  public static SemanticVersionObject GetCurrentAppVersion()
+  {
+    Assembly entryAssembly = Assembly.GetEntryAssembly()
+      ?? throw new InvalidOperationException("Unable to get entry assembly.");
+    AssemblyName assemblyName = entryAssembly.GetName()
+      ?? throw new InvalidOperationException("Unable to get assembly name.");
+
+    if (assemblyName.Version is null)
+    {
+      throw new InvalidOperationException("Unable to get assembly version.");
+    }
+
+    return FromVersion(assemblyName.Version, true);
   }
 
   /// <summary>

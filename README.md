@@ -46,6 +46,18 @@ There is also a static `FromString` Method which will return you a `SemanticVers
 var version = SemanticVersionObject.FromString("v1.0.0-beta.1+298a915a985daeb426a0fe7543917874d7fa2995");
 ```
 
+### FromVersion
+
+There is a static method to take the version from a .NET `Version` instance called `FromVersion`. It takes the `Version` instance as a parameter.
+
+The second parameter controls how build and revision are used. [The Version docs](https://learn.microsoft.com/en-us/dotnet/fundamentals/runtime-libraries/system-version) state, that revision should be used for assemblies that fix security holes but are otherwise the same. This would match the sense of the `Patch` part of semantic version, so this is the default, setting the `Revision` property to the patch version.
+
+However when using the `Version` build property in `.csproj` the generated version in `AssemblyInfo.cs` ends up in a way where patch version lands in the build property instead of revision. So when using the method with an Assembly version, you can pass `true` to the method and the patch version will be read from the `Build` property and `Revision` is used for build version.
+
+## GetCurrentAppVersion
+
+This retrieves the version from the current running application and returns a `SemanticVersionObject` for it. For this `Assembly.GetEntryAssembly()` is used.
+
 ### ToString
 
 You can generate a version string with the `ToString` method:

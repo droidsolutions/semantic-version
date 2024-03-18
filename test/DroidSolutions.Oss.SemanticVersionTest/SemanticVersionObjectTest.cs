@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 using DroidSolutions.Oss.SemanticVersion;
 
@@ -9,9 +10,9 @@ namespace DroidSolutions.Oss.SemanticVersionTest;
 
 public class SemanticVersionObjectTest
 {
-  public static IEnumerable<object[]> FromStringTestData() => new[]
-  {
-    new object[] { "1.0.0", new SemanticVersionObject(1, 0, 0) },
+  public static IEnumerable<object[]> FromStringTestData() =>
+  [
+    ["1.0.0", new SemanticVersionObject(1, 0, 0)],
     ["v1.0.0", new SemanticVersionObject(1, 0, 0)],
     ["1.1.1", new SemanticVersionObject(1, 1, 1)],
     ["11.111.1111", new SemanticVersionObject(11, 111, 1111)],
@@ -21,7 +22,15 @@ public class SemanticVersionObjectTest
       "1.20.4+dd08e98289531187cb240db94b188c58938eb214",
       new SemanticVersionObject(1, 20, 4, null, "dd08e98289531187cb240db94b188c58938eb214")
     ],
-  };
+  ];
+
+  public static IEnumerable<object[]> FromVersionTestData() =>
+  [
+    [new Version(1, 0, 0, 0), false, "v1.0.0"],
+    [new Version(2, 3, 0, 4), false, "v2.3.4"],
+    [new Version(2, 3, 5, 4), false, "v2.3.4+5"],
+    [new Version("3.43.35.0"), true, "v3.43.35"],
+  ];
 
   [Theory]
   [MemberData(nameof(FromStringTestData))]
@@ -50,6 +59,37 @@ public class SemanticVersionObjectTest
   public void FromString_ThrowsArgumentException_IfInvalidVersionGiven(string version)
   {
     Assert.Throws<ArgumentException>(() => SemanticVersionObject.FromString(version));
+  }
+
+  [Theory]
+  [MemberData(nameof(FromVersionTestData))]
+  public void FromVersion_ShouldParseCorrect(Version version, bool useRevisionAsPatch, string expected)
+  {
+    Assert.Equal(expected, SemanticVersionObject.FromVersion(version, useRevisionAsPatch).ToString());
+  }
+
+  [Fact]
+  public void FromVersion_ThrowsArgumentNullException_IfGivenNull()
+  {
+    Assert.Throws<ArgumentNullException>(() => SemanticVersionObject.FromVersion(null!));
+  }
+
+  [Fact]
+  public void GetCurrentAppVersion_ShouldWork()
+  {
+    SemanticVersionObject actual = SemanticVersionObject.GetCurrentAppVersion();
+    Version? expected = Assembly.GetEntryAssembly()?.GetName()?.Version;
+    Assert.Equal(expected?.Major, actual.Major);
+    Assert.Equal(expected?.Minor, actual.Minor);
+    Assert.Equal(expected?.Build, actual.Patch);
+    if (expected?.Revision > 0)
+    {
+      Assert.Equal(expected?.Revision.ToString(), actual.Build);
+    }
+    else
+    {
+      Assert.Null(actual.Build);
+    }
   }
 
   [Fact]
