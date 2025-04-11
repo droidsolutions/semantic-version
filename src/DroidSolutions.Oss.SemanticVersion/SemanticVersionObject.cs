@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -355,6 +356,7 @@ public class SemanticVersionObject : ISemanticVersion, IComparable, IEquatable<S
   /// Checks if the current version object is a pre-release version or not.
   /// </summary>
   /// <returns><see langword="true"/> if this version is a pre-release, else <see langword="false"/>.</returns>
+  [MemberNotNullWhen(true, nameof(PreRelease))]
   public bool IsPreRelease()
   {
     return !string.IsNullOrEmpty(PreRelease);
