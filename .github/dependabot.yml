@@ -7,7 +7,7 @@ updates:
     schedule:
       interval: daily
     assignees:
-      - "kampfmoehre"
+      - "Kampfmoehre"
     groups:
       roslynator:
         patterns:
@@ -23,7 +23,7 @@ updates:
     schedule:
       interval: daily
     assignees:
-      - "kampfmoehre"
+      - "Kampfmoehre"
     commit-message:
       prefix: "ci"
     groups:
@@ -37,6 +37,6 @@ updates:
     schedule:
       interval: daily
     assignees:
-      - "kampfmoehre"
+      - "Kampfmoehre"
     commit-message:
       prefix: "ci"
