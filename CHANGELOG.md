@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/droidsolutions/semantic-version/compare/v1.4.0...v1.5.0) (2025-04-11)
+
+
+### Features
+
+* add compiler hint for IsPreRelease ([6f0f073](https://github.com/droidsolutions/semantic-version/commit/6f0f073e9d2ccfc39d6134a8eafb2cfab2448e36))
+* upgrade to .NET 9 ([4b0c26e](https://github.com/droidsolutions/semantic-version/commit/4b0c26e59e4c8eab517f64d9ecfabdcd3da38d4f))
+
 # [1.4.0](https://github.com/droidsolutions/semantic-version/compare/v1.3.0...v1.4.0) (2024-03-18)
 
 
