@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-dotnet@v5.0.0
         with:
           dotnet-version: "9.0.x"
@@ -14,7 +14,7 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-dotnet@v5.0.0
         with:
           dotnet-version: "9.0.x"
@@ -34,7 +34,7 @@ jobs:
       - coverage
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
