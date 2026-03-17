@@ -30,7 +30,7 @@
   "devDependencies": {
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
-    "@droidsolutions-oss/semantic-release-nuget": "2.0.1",
+    "@droidsolutions-oss/semantic-release-nuget": "2.1.0-beta.3",
     "@droidsolutions-oss/semantic-release-update-file": "1.4.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/git": "10.0.1",
@@ -49,68 +49,5 @@
         "lowerCase"
       ]
     }
-  },
-  "release": {
-    "branches": [
-      "+([0-9])?(.{+([0-9]),x}).x",
-      "master",
-      "main",
-      "next",
-      "next-major",
-      {
-        "name": "alpha",
-        "prerelease": true
-      },
-      {
-        "name": "beta",
-        "prerelease": true
-      },
-      {
-        "name": "develop",
-        "prerelease": true
-      }
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@droidsolutions-oss/semantic-release-update-file",
-      "@semantic-release/npm",
-      "@droidsolutions-oss/semantic-release-nuget",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "package.json",
-            "package-lock.json",
-            "CHANGELOG.md",
-            "Directory.Build.props"
-          ],
-          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }
-      ],
-      "@semantic-release/github"
-    ],
-    "projectPath": "src/DroidSolutions.Oss.SemanticVersion/DroidSolutions.Oss.SemanticVersion.csproj",
-    "npmPublish": false,
-    "includeSymbols": true,
-    "files": [
-      {
-        "path": [
-          "Directory.Build.props"
-        ],
-        "type": "xml",
-        "replacements": [
-          {
-            "key": "Version",
-            "value": "${nextRelease.version}"
-          },
-          {
-            "key": "RepositoryCommit",
-            "value": "${nextRelease.gitHead}"
-          }
-        ]
-      }
-    ]
   }
 }
