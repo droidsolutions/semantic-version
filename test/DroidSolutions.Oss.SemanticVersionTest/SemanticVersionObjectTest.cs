@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 using DroidSolutions.Oss.SemanticVersion;
 
@@ -9,15 +10,27 @@ namespace DroidSolutions.Oss.SemanticVersionTest;
 
 public class SemanticVersionObjectTest
 {
-  public static IEnumerable<object[]> FromStringTestData() => new[]
-  {
-    new object[] { "1.0.0", new SemanticVersionObject(1, 0, 0) },
-    new object[] { "v1.0.0", new SemanticVersionObject(1, 0, 0) },
-    new object[] { "1.1.1", new SemanticVersionObject(1, 1, 1) },
-    new object[] { "11.111.1111", new SemanticVersionObject(11, 111, 1111) },
-    new object[] { "1.0.0-alpha.1", new SemanticVersionObject(1, 0, 0, "alpha.1") },
-    new object[] { "1.0.0-beta.12", new SemanticVersionObject(1, 0, 0, "beta.12") },
-  };
+  public static IEnumerable<object[]> FromStringTestData() =>
+  [
+    ["1.0.0", new SemanticVersionObject(1, 0, 0)],
+    ["v1.0.0", new SemanticVersionObject(1, 0, 0)],
+    ["1.1.1", new SemanticVersionObject(1, 1, 1)],
+    ["11.111.1111", new SemanticVersionObject(11, 111, 1111)],
+    ["1.0.0-alpha.1", new SemanticVersionObject(1, 0, 0, "alpha.1")],
+    ["1.0.0-beta.12", new SemanticVersionObject(1, 0, 0, "beta.12")],
+    [
+      "1.20.4+dd08e98289531187cb240db94b188c58938eb214",
+      new SemanticVersionObject(1, 20, 4, null, "dd08e98289531187cb240db94b188c58938eb214")
+    ],
+  ];
+
+  public static IEnumerable<object[]> FromVersionTestData() =>
+  [
+    [new Version(1, 0, 0, 0), false, "v1.0.0"],
+    [new Version(2, 3, 0, 4), false, "v2.3.4"],
+    [new Version(2, 3, 5, 4), false, "v2.3.4+5"],
+    [new Version("3.43.35.0"), true, "v3.43.35"],
+  ];
 
   [Theory]
   [MemberData(nameof(FromStringTestData))]
@@ -48,15 +61,46 @@ public class SemanticVersionObjectTest
     Assert.Throws<ArgumentException>(() => SemanticVersionObject.FromString(version));
   }
 
+  [Theory]
+  [MemberData(nameof(FromVersionTestData))]
+  public void FromVersion_ShouldParseCorrect(Version version, bool useRevisionAsPatch, string expected)
+  {
+    Assert.Equal(expected, SemanticVersionObject.FromVersion(version, useRevisionAsPatch).ToString());
+  }
+
+  [Fact]
+  public void FromVersion_ThrowsArgumentNullException_IfGivenNull()
+  {
+    Assert.Throws<ArgumentNullException>(() => SemanticVersionObject.FromVersion(null!));
+  }
+
+  [Fact]
+  public void GetCurrentAppVersion_ShouldWork()
+  {
+    SemanticVersionObject actual = SemanticVersionObject.GetCurrentAppVersion();
+    Version? expected = Assembly.GetEntryAssembly()?.GetName()?.Version;
+    Assert.Equal(expected?.Major, actual.Major);
+    Assert.Equal(expected?.Minor, actual.Minor);
+    Assert.Equal(expected?.Build, actual.Patch);
+    if (expected?.Revision > 0)
+    {
+      Assert.Equal(expected?.Revision.ToString(), actual.Build);
+    }
+    else
+    {
+      Assert.Null(actual.Build);
+    }
+  }
+
   [Fact]
   public void ListOf_SemanticVersionObject_ShouldBeSortedDescending()
   {
     var list = new List<SemanticVersionObject>
       {
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+        SemanticVersionObject.FromString("1.0.0"),
+        SemanticVersionObject.FromString("1.1.1"),
+        SemanticVersionObject.FromString("1.1.0"),
+        SemanticVersionObject.FromString("0.9.0"),
       };
 
     list.Sort();
@@ -64,10 +108,10 @@ public class SemanticVersionObjectTest
     Assert.Equal(
       new List<SemanticVersionObject>
       {
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+          SemanticVersionObject.FromString("1.1.1"),
+          SemanticVersionObject.FromString("1.1.0"),
+          SemanticVersionObject.FromString("1.0.0"),
+          SemanticVersionObject.FromString("0.9.0"),
       },
       list);
   }
@@ -77,10 +121,10 @@ public class SemanticVersionObjectTest
   {
     var list = new SemanticVersionObject[]
     {
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-        (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+        SemanticVersionObject.FromString("1.0.0"),
+        SemanticVersionObject.FromString("1.1.1"),
+        SemanticVersionObject.FromString("1.1.0"),
+        SemanticVersionObject.FromString("0.9.0"),
     };
 
     Array.Sort(list, SemanticVersionObject.SortVersionDescending());
@@ -88,10 +132,10 @@ public class SemanticVersionObjectTest
     Assert.Equal(
       new List<SemanticVersionObject>
       {
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.1"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.1.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("1.0.0"),
-          (SemanticVersionObject)SemanticVersionObject.FromString("0.9.0"),
+          SemanticVersionObject.FromString("1.1.1"),
+          SemanticVersionObject.FromString("1.1.0"),
+          SemanticVersionObject.FromString("1.0.0"),
+          SemanticVersionObject.FromString("0.9.0"),
       },
       list);
   }
@@ -114,9 +158,9 @@ public class SemanticVersionObjectTest
   }
 
   [Fact]
-  public void CompareTo_ShouldReturn1IfGivenNull()
+  public void CompareTo_ShouldReturnMinus1IfGivenNull()
   {
-    Assert.Equal(1, new SemanticVersionObject().CompareTo(null));
+    Assert.Equal(-1, new SemanticVersionObject().CompareTo(null));
   }
 
   [Fact]
@@ -129,6 +173,8 @@ public class SemanticVersionObjectTest
   [InlineData("v1.0.0", true, "v1.0.0")]
   [InlineData("v22.222.2222", false, "22.222.2222")]
   [InlineData("v3333.33.333-develop.16", true, "v3333.33.333-develop.16")]
+  [InlineData("2.3.4-beta.1+298a915a985daeb426a0fe7543917874d7fa2995", true, "v2.3.4-beta.1+298a915a985daeb426a0fe7543917874d7fa2995")]
+  [InlineData("2.3.4+298a915a985daeb426a0fe7543917874d7fa2995", false, "2.3.4+298a915a985daeb426a0fe7543917874d7fa2995")]
   public void ToVersionString_ShouldWorkCorrectly(string input, bool withV, string expected)
   {
     var version = SemanticVersionObject.FromString(input) as SemanticVersionObject;
@@ -161,6 +207,148 @@ public class SemanticVersionObjectTest
   {
     var version = SemanticVersionObject.FromString(ownVersion);
     var actual = version.IsOlderThan(SemanticVersionObject.FromString(otherVersion));
+    Assert.Equal(expected, actual);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", false)]
+  [InlineData("2.3.4", false)]
+  [InlineData("3.2.1-alpha.1", true)]
+  [InlineData("4.2.1-beta.15-special", true)]
+  [InlineData("5.0.5-develop.69-build.420", true)]
+  [InlineData("5.0.5-develop.69+build.420", true)]
+  [InlineData("5.0.5+build.420", false)]
+  public void IsPreRelease_ShouldWork(string version, bool expected)
+  {
+    SemanticVersionObject semanticVersion = SemanticVersionObject.FromString(version);
+    Assert.Equal(expected, semanticVersion.IsPreRelease());
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.0", true)]
+  [InlineData("v1.0.0", "v1.0.1", false)]
+  [InlineData("v1.0.1", "v1.0.0", false)]
+  public void IEquatable_Equals_ShouldWork(string version1, string version2, bool expected)
+  {
+    SemanticVersionObject semanticVersion1 = SemanticVersionObject.FromString(version1);
+    SemanticVersionObject semanticVersion2 = SemanticVersionObject.FromString(version2);
+    Assert.Equal(expected, semanticVersion1.Equals(semanticVersion2));
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.0", true)]
+  [InlineData("v1.0.0", "v1.0.1", false)]
+  [InlineData("v1.0.1", "v1.0.0", false)]
+  public void Object_Equals_ShouldWork(string version1, string version2, bool expected)
+  {
+    SemanticVersionObject semanticVersion1 = SemanticVersionObject.FromString(version1);
+    SemanticVersionObject semanticVersion2 = SemanticVersionObject.FromString(version2);
+    Assert.Equal(expected, semanticVersion1.Equals((object)semanticVersion2));
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0")]
+  [InlineData("v1.0.0", "1.0.0")]
+  [InlineData("v1.0.0-beta.1", "1.0.0-beta.1")]
+  public void Object_GetHashCode_ShouldWork(string version1, string version2)
+  {
+    SemanticVersionObject semanticVersion1 = SemanticVersionObject.FromString(version1);
+    SemanticVersionObject semanticVersion2 = SemanticVersionObject.FromString(version2);
+
+    Assert.Equal(semanticVersion1.GetHashCode(), semanticVersion2.GetHashCode());
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.0", true)]
+  [InlineData("v1.0.1", "v1.0.0", false)]
+  [InlineData("v1.0.0-beta.1", "1.0.0-beta.1", true)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, false)]
+  public void EqualityOperator_ShouldWork(string? version1, string? version2, bool expected)
+  {
+    SemanticVersionObject? semanticVersion1 = version1 == null ? null : SemanticVersionObject.FromString(version1);
+    SemanticVersionObject? semanticVersion2 = version2 == null ? null : SemanticVersionObject.FromString(version2);
+
+    Assert.Equal(expected, semanticVersion1 == semanticVersion2);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", false)]
+  [InlineData("v1.0.0", "1.0.0", false)]
+  [InlineData("v1.0.1", "v1.0.0", true)]
+  [InlineData("v1.0.0-beta.1", "1.0.0-beta.1", false)]
+  [InlineData(null, "v1.0.0", true)]
+  [InlineData("v1.0.0", null, true)]
+  public void UnequalityOperator_ShouldWork(string? version1, string? version2, bool expected)
+  {
+    SemanticVersionObject? semanticVersion1 = version1 == null ? null : SemanticVersionObject.FromString(version1);
+    SemanticVersionObject? semanticVersion2 = version2 == null ? null : SemanticVersionObject.FromString(version2);
+
+    Assert.Equal(expected, semanticVersion1 != semanticVersion2);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", false)]
+  [InlineData("v1.0.0", "1.0.1", false)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", true)]
+  [InlineData("v3.0.0", "3.1.0", false)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, true)]
+  public void GreaterThanOperator_ShouldWork(string? greater, string? lower, bool expected)
+  {
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+
+    Assert.Equal(expected, greaterSemanticVersion > lowerSemanticVersion);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", false)]
+  [InlineData("v1.0.0", "1.0.1", true)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", false)]
+  [InlineData("v3.0.0", "3.1.0", true)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, false)]
+  public void LowerThanOperator_ShouldWork(string? lower, string? greater, bool expected)
+  {
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+
+    bool actual = lowerSemanticVersion < greaterSemanticVersion;
+    Assert.Equal(expected, actual);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.1", false)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", true)]
+  [InlineData("v3.0.0", "3.1.0", false)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, true)]
+  public void GreaterThanOrEqualOperator_ShouldWork(string? greater, string? lower, bool expected)
+  {
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+
+    Assert.Equal(expected, greaterSemanticVersion >= lowerSemanticVersion);
+  }
+
+  [Theory]
+  [InlineData("v1.0.0", "v1.0.0", true)]
+  [InlineData("v1.0.0", "1.0.1", true)]
+  [InlineData("v2.0.0", "v2.0.0-beta.1", false)]
+  [InlineData("v3.0.0", "3.1.0", true)]
+  [InlineData(null, "v1.0.0", false)]
+  [InlineData("v1.0.0", null, false)]
+  public void LowerThanOrEqualOperator_ShouldWork(string? lower, string? greater, bool expected)
+  {
+    SemanticVersionObject? lowerSemanticVersion = lower == null ? null : SemanticVersionObject.FromString(lower);
+    SemanticVersionObject? greaterSemanticVersion = greater == null ? null : SemanticVersionObject.FromString(greater);
+
+    bool actual = lowerSemanticVersion <= greaterSemanticVersion;
     Assert.Equal(expected, actual);
   }
 }

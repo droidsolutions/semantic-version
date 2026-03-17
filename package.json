@@ -1,6 +1,6 @@
 {
   "name": "@droidsolutions-oss/semantic-version",
-  "version": "1.0.0-develop.5",
+  "version": "1.5.0",
   "description": "NuGet package with tools to help work with semantic version numbers.",
   "main": "index.js",
   "directories": {
@@ -28,15 +28,15 @@
   "homepage": "https://github.com/droidsolutions/semantic-version#readme",
   "private": true,
   "devDependencies": {
-    "@commitlint/cli": "16.1.0",
-    "@commitlint/config-conventional": "16.0.0",
-    "@droidsolutions-oss/semantic-release-nuget": "1.0.3",
-    "@droidsolutions-oss/semantic-release-update-file": "1.0.3",
-    "@semantic-release/changelog": "6.0.1",
+    "@commitlint/cli": "20.5.0",
+    "@commitlint/config-conventional": "20.5.0",
+    "@droidsolutions-oss/semantic-release-nuget": "2.0.1",
+    "@droidsolutions-oss/semantic-release-update-file": "1.4.0",
+    "@semantic-release/changelog": "6.0.3",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "8.0.2",
-    "husky": "7.0.4",
-    "semantic-release": "19.0.2"
+    "@semantic-release/github": "12.0.6",
+    "husky": "9.1.7",
+    "semantic-release": "25.0.3"
   },
   "commitlint": {
     "extends": [

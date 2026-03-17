@@ -7,7 +7,15 @@ updates:
     schedule:
       interval: daily
     assignees:
-      - "kampfmoehre"
+      - "Kampfmoehre"
+    groups:
+      roslynator:
+        patterns:
+          - "Roslynator.*"
+      xunit:
+        patterns:
+          - "xunit"
+          - "xunit.*"
   - directory: /
     open-pull-requests-limit: 10
     package-ecosystem: npm
@@ -15,9 +23,13 @@ updates:
     schedule:
       interval: daily
     assignees:
-      - "kampfmoehre"
+      - "Kampfmoehre"
     commit-message:
       prefix: "ci"
+    groups:
+      commitlint:
+        patterns:
+          - "@commitlint/*"
   - directory: /
     open-pull-requests-limit: 10
     package-ecosystem: github-actions
@@ -25,6 +37,6 @@ updates:
     schedule:
       interval: daily
     assignees:
-      - "kampfmoehre"
+      - "Kampfmoehre"
     commit-message:
       prefix: "ci"

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)stylecop.ruleset</CodeAnalysisRuleSet>
-    <Version>1.0.0-develop.5</Version>
+    <Version>1.5.0</Version>
     <Authors>Stefan Ißmer</Authors>
     <Company>DroidSolutions GmbH</Company>
     <Description>Contains tools to help work with semantic version numbers.</Description>
@@ -16,23 +16,23 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>https://github.com/droidsolutions/semantic-version/blob/main/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryBranch>main</RepositoryBranch>
-    <RepositoryCommit>09cc4f3823a7165891cded4db340215696355fb0</RepositoryCommit>
+    <RepositoryCommit>6f0f073e9d2ccfc39d6134a8eafb2cfab2448e36</RepositoryCommit>
     <PackageTags>semantic;semantic-version;compare;version</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" />
-    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath=""/>
-    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath=""/>
-    <None Include="$(MSBuildThisFileDirectory)CHANGELOG.md" Pack="true" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildThisFileDirectory)CHANGELOG.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
-    <PackageReference Include="Roslynator.Analyzers" Version="4.0.0" PrivateAssets="All"/>
-    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.0.0" PrivateAssets="All"/>
-    <PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.0.0" PrivateAssets="All"/>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.15.0" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.15.0" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.15.0" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
