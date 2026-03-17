@@ -1,3 +1,10 @@
+# [1.6.0-develop.5](https://github.com/droidsolutions/semantic-version/compare/v1.6.0-develop.4...v1.6.0-develop.5) (2026-03-17)
+
+
+### Bug Fixes
+
+* **CI:** test NuGet package link on GitHub release [#2](https://github.com/droidsolutions/semantic-version/issues/2) ([aa8cfa5](https://github.com/droidsolutions/semantic-version/commit/aa8cfa5dc2bf63ed013956e80e5ebcf7ff48fe08))
+
 # [1.6.0-develop.4](https://github.com/droidsolutions/semantic-version/compare/v1.6.0-develop.3...v1.6.0-develop.4) (2026-03-17)
 
 
