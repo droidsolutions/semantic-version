@@ -1,3 +1,10 @@
+# [1.6.0-develop.3](https://github.com/droidsolutions/semantic-version/compare/v1.6.0-develop.2...v1.6.0-develop.3) (2026-03-17)
+
+
+### Bug Fixes
+
+* **CI:** (Only CI) test Semantic Release nuget plugin [#2](https://github.com/droidsolutions/semantic-version/issues/2) ([61ff0dd](https://github.com/droidsolutions/semantic-version/commit/61ff0dd76f8cf5aeaf3642807c6856e6e257f677))
+
 # [1.6.0-develop.2](https://github.com/droidsolutions/semantic-version/compare/v1.6.0-develop.1...v1.6.0-develop.2) (2026-03-17)
 
 
