@@ -1,3 +1,22 @@
+# [1.6.0](https://github.com/droidsolutions/semantic-version/compare/v1.5.0...v1.6.0) (2026-08-24)
+
+
+### Bug Fixes
+
+* **CI:** (CI ONLY) test NuGet package link on release ([d10af81](https://github.com/droidsolutions/semantic-version/commit/d10af813d392adfbbaa6e44a2b07ec1553484b41))
+* **CI:** (Only CI) test Semantic Release nuget plugin ([a156b30](https://github.com/droidsolutions/semantic-version/commit/a156b308f47ee4a80b86d907d9ef181b9dc7372b))
+* **CI:** (Only CI) test Semantic Release nuget plugin [#2](https://github.com/droidsolutions/semantic-version/issues/2) ([61ff0dd](https://github.com/droidsolutions/semantic-version/commit/61ff0dd76f8cf5aeaf3642807c6856e6e257f677))
+* **CI:** test NuGet package link on GitHub release [#2](https://github.com/droidsolutions/semantic-version/issues/2) ([aa8cfa5](https://github.com/droidsolutions/semantic-version/commit/aa8cfa5dc2bf63ed013956e80e5ebcf7ff48fe08))
+* **nuget:** enable deterministic build ([9aa60bf](https://github.com/droidsolutions/semantic-version/commit/9aa60bf12ca04f8a91f76d5ece77f04d506805af))
+* **nuget:** update copyright year ([09cc4f3](https://github.com/droidsolutions/semantic-version/commit/09cc4f3823a7165891cded4db340215696355fb0))
+* **nuget:** update nuget plugin upload snupkg ([466f83f](https://github.com/droidsolutions/semantic-version/commit/466f83f0a09ae8dd93ca1524463b8c6af5c445ce))
+* **release:** update nuget plugin ([85aa7f6](https://github.com/droidsolutions/semantic-version/commit/85aa7f6875cf2f82c45cd63cb211442cb339052f))
+
+
+### Features
+
+* support .NET 10 ([d666ce2](https://github.com/droidsolutions/semantic-version/commit/d666ce2512bd6fdb190b7d6430b86acb0bc12762))
+
 # [1.6.0-develop.5](https://github.com/droidsolutions/semantic-version/compare/v1.6.0-develop.4...v1.6.0-develop.5) (2026-03-17)
 
 
