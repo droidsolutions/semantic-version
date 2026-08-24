@@ -6,8 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-dotnet@v5.2.0
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6.0.0
         with:
           global-json-file: global.json
       - run: dotnet build
@@ -15,13 +15,13 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-dotnet@v5.2.0
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6.0.0
         with:
           global-json-file: global.json
       - run: dotnet test /p:CollectCoverage=true
       - name: publish coverage report to coveralls.io
-        uses: coverallsapp/github-action@v2.3.7
+        uses: coverallsapp/github-action@v2.3.8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage/coverage.info
@@ -41,16 +41,16 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
-      - uses: actions/setup-dotnet@v5.2.0
+      - uses: actions/setup-dotnet@v6.0.0
         with:
           global-json-file: global.json
       - name: Install packages
-        run: npm ci --no-fund
+        run: npm ci --no-fund --ignore-scripts
       - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For package publishing
