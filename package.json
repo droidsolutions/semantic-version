@@ -30,7 +30,7 @@
   "devDependencies": {
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
-    "@droidsolutions-oss/semantic-release-nuget": "2.1.1",
+    "@droidsolutions-oss/semantic-release-nuget": "2.1.2",
     "@droidsolutions-oss/semantic-release-update-file": "2.0.0",
     "@semantic-release/changelog": "7.0.0",
     "@semantic-release/git": "11.0.1",
